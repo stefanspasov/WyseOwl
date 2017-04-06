@@ -4,75 +4,119 @@
     ViewBag.Title = "Home Page";
 }
 
+@section Scripts {
+    <script>
+        $(function() {
+            $("#beginYearSlider").slider({
+
+                  range: "max",
+
+                  min: 1990,
+
+                  max: 2017,
+
+                  value: 2000,
+
+                  slide: function (event, ui) {
+                      $("#beginYear").val(ui.value);
+                  }
+            });
+
+            $("#cbPaye").switchButton(
+            {
+                on_label: "Yes",        
+                off_label: "No"
+            });
+        });
+    </script>
+}
+
 <div class="jumbotron">
-    <h1>Student Loans Repayment Calculator UK</h1>
+    @*<h1>Student Loans Repayment Calculator UK</h1>*@
     <p class="lead">Use this quick and easy calculator to see how long it takes to pay off your student loan and whether you can make any savings. </p>
     <p class="lead">We don't store any of your information!</p>
 </div>
 
-<div class="row">
-    <div class="col-md-8">
+<button data-toggle="collapse" data-target="#calculationInputDiv" id="calculationInputButton" class="btn btn-info">Collapsible</button>
+
+<div class="collapse in" id="calculationInputDiv">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Ajax.BeginForm("Index", "Home", new AjaxOptions() { HttpMethod = "POST" }, new {
+                UpdateTargetId = "Result",
+                OnSuccess = "onSuccess",
+                OnBegin = "onBegin",
+                OnComplete = "onComplete"
+            }))
             {
                 @Html.AntiForgeryToken()
-                <hr />
+                <hr/>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Balance, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Balance)
+                    </div>
+                    <div class="col-md-8">
                         @Html.TextBoxFor(m => m.Balance, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Balance, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group" style = "display: none;" id="myDIV" >
-                    @Html.LabelFor(m => m.HomeAddress, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.HomeAddress, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.HomeAddress, "", new { @class = "text-danger" })
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.SelectedAddressCuntry)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.SelectedAddressCuntry, Model.AddressCountry, "-SELECT-", new { @class = "form-control" })
                     </div>
                 </div>
-                @*<div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <br/>
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.StartYear)
+                    </div>
+                    <div class="col-md-2" style="padding-top: 10px;">
+                        <div id="beginYearSlider"></div>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
+                    </div>
+                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Paye);
+                    </div>
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m=>m.Paye, new {@id = "cbPaye"})
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="row">
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>*@
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Calculate" class="btn btn-default" />
+                        <input type="submit" value="Calculate" class="btn btn-default"/>
                     </div>
                 </div>
             }
+
         </section>
     </div>
-    @*<div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>*@
-</div>
+    <h1>
+        <span id="Result"></span>
+    </h1>
 
-<script type="text/javascript">
-   $("#Balance")
-  .focusout(function () {
-      $("#myDIV").show();
-      console.log("AAAA");
-  })
-</script>
+@if (Model?.CalculationResult != null)
+{
+    <section id="socialLoginForm">
+        <div class="row">
+            <div class="col-md-8">
+                Your outstanding loan for this month is: &nbsp; @Html.LabelFor(m => m.CalculationResult.Result1, Model.CalculationResult.Result1)
+            </div>
+        </div>
+    </section>
+
+    <script  type="text/javascript">
+       $("#calculationInputButton").click();
+    </script>
+}
+
+
