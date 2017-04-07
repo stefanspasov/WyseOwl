@@ -8,18 +8,23 @@
     <script>
         $(function() {
             $("#beginYearSlider").slider({
-
                   range: "max",
-
                   min: 1990,
-
                   max: 2017,
-
-                  value: 2000,
-
+                  value: $("#beginYear").val(),
                   slide: function (event, ui) {
                       $("#beginYear").val(ui.value);
                   }
+            });
+
+            $("#eligilbeYearSlider").slider({
+                range: "max",
+                min: 1990,
+                max: 2017,
+                value: $("#eligibleYear").val(),
+                slide: function (event, ui) {
+                    $("#eligibleYear").val(ui.value);
+                }
             });
 
             $("#cbPaye").switchButton(
@@ -72,16 +77,28 @@
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-xs-12">
                         @Html.LabelFor(m => m.StartYear)
                     </div>
-                    <div class="col-md-2" style="padding-top: 10px;">
+                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
                         <div id="beginYearSlider"></div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-xs-4">
                         @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
                     </div>
                     <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        @Html.LabelFor(m => m.EligibleYear)
+                    </div>
+                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
+                        <div id="eligilbeYearSlider"></div>
+                    </div>
+                    <div class="col-md-1 col-xs-4">
+                        @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
+                    </div>
+                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">

@@ -19,11 +19,16 @@ namespace WyseOwl.Models
             public string SelectedAddressCuntry { get; set; }
 
             [Display(Name = "Beginning year")]
-            [Range(1990, 2017, ErrorMessage = "Please select between ..")]
+            [Range(1990, 2017, ErrorMessage = "Please select between 1990 and 2017")]
             public int StartYear { get; set; }
+
+            [Display(Name = "Eligible year")]
+            [Range(1990, 2017, ErrorMessage = "Please select between 1990 and 2017")]
+            public int EligibleYear { get; set; }
 
             [Display(Name = "Paye")]
             public bool Paye { get; set; }
+
 
             public CalculationResult CalculationResult { get; set; }
         }
@@ -35,5 +40,3 @@ namespace WyseOwl.Models
         }
     }
 }
-
-// SMALL TEST

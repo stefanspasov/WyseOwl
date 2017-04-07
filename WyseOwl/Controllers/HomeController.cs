@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading;
-
     using WyseOwl.Models;
     using System.Web.Mvc;
 
@@ -14,7 +13,9 @@
                             {
                                 AddressCountry =
                                     this.GetSelectListItems(
-                                        this.GetAllAddressCountries())
+                                        this.GetAllAddressCountries()), 
+                                EligibleYear = 2000, 
+                                StartYear = 2000
                             };
 
             return View(model);
