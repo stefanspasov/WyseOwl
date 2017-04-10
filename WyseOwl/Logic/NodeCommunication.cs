@@ -6,7 +6,7 @@
 
     public class NodeCommunication
     {
-        public void SendFirstCalculation(CalculationsViewModel1.FirstCalculation calc)
+        public CalculationsViewModel1.CalculationResult SendFirstCalculation(CalculationsViewModel1.FirstCalculation calc)
         {
             var client = new RestClient("http://wyseowlnode.azurewebsites.net");
             var request = new RestRequest("calc", Method.POST);
@@ -33,13 +33,38 @@
 
             try
             {
-                var a = client.Execute(request);
-        
+                var result = client.Execute(request);
+                var noBrackets = result.Content.Substring(1, result.Content.Length - 2);
+                noBrackets = noBrackets.Replace(Environment.NewLine, "");
+                var splitted = noBrackets.Split('!');
+
+                var a = splitted[0].Remove(0, 4);
+                var b = splitted[2].Remove(0, 6);
+                var c = splitted[4].Remove(0, 6);
+                var d = splitted[5].Remove(0, 6);
+                var e = splitted[6].Remove(0, 6);
+                var f = splitted[7].Remove(0, 6);
+                var g = splitted[3].Remove(0, 6);
+                var h = splitted[1].Remove(0, 6);
+
+                return new CalculationsViewModel1.CalculationResult
+                           {
+                               OutstandingLoan = a,
+                               LengthUntillPaidOff = b,
+                               YouSave = c,
+                               TotalAmountRepayments = d,
+                               MonthlyRepayments = e,
+                               InterestRate = f,
+                               CancelledIn = g,
+                               LoanType = h
+                           };
             }
             catch (Exception error)
             {
                 // Log
             }
+
+            return null;
         }
     }
 }

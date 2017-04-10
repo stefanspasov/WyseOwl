@@ -92,9 +92,14 @@ namespace WyseOwl.Models
 
         public class CalculationResult
         {
-            [Display(Name = "Result 1")]
-            [DisplayFormat(NullDisplayText = "EMPTY")]
-            public string Result1 { get; set; }
+            public string OutstandingLoan { get; set; }
+            public string LengthUntillPaidOff { get; set; }
+            public string YouSave { get; set; }
+            public string TotalAmountRepayments { get; set; }
+            public string MonthlyRepayments { get; set; }
+            public string InterestRate { get; set; }
+            public string CancelledIn { get; set; }
+            public string LoanType { get; set; }
         }
     }
 }

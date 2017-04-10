@@ -1,11 +1,8 @@
 ﻿namespace WyseOwl.Controllers
 {
     using System.Collections.Generic;
-    using System.Threading;
     using WyseOwl.Models;
     using System.Web.Mvc;
-    using System.Web.Script.Serialization;
-
     using WyseOwl.Logic;
 
     public class HomeController : Controller
@@ -50,8 +47,7 @@
             calcultionInputs.pg = "Yes";
 
             var client = new NodeCommunication();
-            client.SendFirstCalculation(calcultionInputs);
-            calcultionInputs.CalculationResult = new CalculationsViewModel1.CalculationResult { Result1 = "1234" };
+            calcultionInputs.CalculationResult  = client.SendFirstCalculation(calcultionInputs);
             return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
         }
 

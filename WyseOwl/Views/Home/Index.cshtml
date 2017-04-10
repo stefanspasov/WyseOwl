@@ -29,9 +29,9 @@
             LoadingElementId = "loader"
         }))
         {
-                    <div id="loader" class=" aletr" style="opacity:0.5; background: #000; width:100%;height:100%; z-index: 10;top:0; left:0; position: fixed; display: none">
-                        Loading...<img src="~/Content/loader.gif" style="background: no-repeat scroll center center #FFF; position: absolute; height: 100%; width: 100%;"/>
-                     </div>
+                <div id="loader" class=" aletr" style="opacity:0.5; background: #000; width:100%;height:100%; z-index: 10;top:0; left:0; position: fixed; display: none">
+                    Loading...<img src="~/Content/loader.gif" style="background: no-repeat scroll center #FFF; position: absolute; height: 100%; width: 100%;"/>
+                </div>
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -140,15 +140,51 @@
 
 
 <section id="socialLoginForm" style="display: none">
+    <br />
+    <br />
+    <br />
+
     <div class="row">
         <div class="col-md-8">
             Your outstanding loan for this month is: &nbsp; <span id="spanResult1"></span>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-8">
+            Length of time until your loan is payed off: &nbsp; <span id="spanResult2"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            By paying off extra, you will save: &nbsp; <span id="spanResult3"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Total amount spent on voluntary repayments: &nbsp; <span id="spanResult4"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Equivalent monthly voluntary repayments: &nbsp; <span id="spanResult5"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Equivalent to an interest rate of: &nbsp; <span id="spanResult6"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Your loan will be canceled in at most: &nbsp; <span id="spanResult7"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Your loan type: &nbsp; <span id="spanResult8"></span>
+        </div>
+    </div>
 </section>
-
-
-
 
 @section Scripts {
     <script>
@@ -156,7 +192,14 @@
         function onSuccess(data) {
             $("#calculationInputButton").click();
             $("#socialLoginForm").css({ 'display': "block" });
-            $("#spanResult1").text(data.result.Result1);
+            $("#spanResult1").text(data.result.OutstandingLoan);
+            $("#spanResult2").text(data.result.LengthUntillPaidOff);
+            $("#spanResult3").text(data.result.YouSave);
+            $("#spanResult4").text(data.result.TotalAmountRepayments);
+            $("#spanResult5").text(data.result.MonthlyRepayments);
+            $("#spanResult6").text(data.result.InterestRate);
+            $("#spanResult7").text(data.result.CancelledIn);
+            $("#spanResult8").text(data.result.LoanType);
         }
 
         $(function () {
