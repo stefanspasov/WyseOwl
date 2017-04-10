@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-default" style="width: 100%; height: 25px" data-target="#calculationInputDiv" data-toggle="collapse" id="calculationInputButton">
+        <button type="button" class="btn btn-default" style="width: 100%; height: 30px" data-target="#calculationInputDiv" data-toggle="collapse" id="calculationInputButton">
             <span class="glyphicon glyphicon-resize-vertical"></span>
         </button>
     </div>
@@ -91,23 +91,42 @@
                 </div>
             </div>
             <br/>
+
             <div class="row">
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.GrossEarnings)
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     @Html.TextBoxFor(m => m.GrossEarnings, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.GrossEarnings, "", new { @class = "text-danger" })
                 </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(m => m.SelectedGrossEarningsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
                 <div class="col-md-4">
-                    @Html.DropDownListFor(m => m.GrossEarningsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                    @Html.LabelFor(m => m.Repayments)
                 </div>
-              </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <input type="submit" value="Calculate" class="btn btn-default" />
-                    </div>
+                <div class="col-md-1">
+                    @Html.TextBoxFor(m => m.Repayments, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Repayments, "", new { @class = "text-danger" })
                 </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(m => m.SelectedRepaymentsCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(m => m.SelectedRepaymentsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+
+             <div class="row">
+                 <div class="col-md-10">
+                     <input type="submit" value="Calculate" class="btn btn-default" />
+                 </div>
+             </div>
 
                 }
 

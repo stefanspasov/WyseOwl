@@ -4,6 +4,9 @@
     using System.Threading;
     using WyseOwl.Models;
     using System.Web.Mvc;
+    using System.Web.Script.Serialization;
+
+    using WyseOwl.Logic;
 
     public class HomeController : Controller
     {
@@ -16,6 +19,7 @@
                                         this.GetAllAddressCountries()), 
                                 WorkCountry = this.GetSelectListItems(this.GetAllWorkCountries()),
                                 PerTime = this.GetSelectListItems(this.GetAllPerTime()),
+                                Currency = this.GetSelectListItems(this.GetAllCurrencies()),
                                 EligibleYear = 2000, 
                                 StartYear = 2000,
                                 CalculationResult = new CalculationsViewModel1.CalculationResult()
@@ -30,11 +34,23 @@
         public ActionResult Index(CalculationsViewModel1.FirstCalculation calcultionInputs)
         {
             calcultionInputs.AddressCountry = GetSelectListItems(GetAllAddressCountries());
+            calcultionInputs.WorkCountry = GetSelectListItems(GetAllWorkCountries());
+            calcultionInputs.PerTime = GetSelectListItems(GetAllPerTime());
+            calcultionInputs.Currency = GetSelectListItems(GetAllCurrencies());
             if (!ModelState.IsValid)
             {
                 return View("Index", calcultionInputs);
             }
 
+
+            calcultionInputs.age_m = "01";
+            calcultionInputs.age_y = "1991";
+            calcultionInputs.bulk = "500";
+            calcultionInputs.curr_bulk = "British Pound";
+            calcultionInputs.pg = "Yes";
+
+            var client = new NodeCommunication();
+            client.SendFirstCalculation(calcultionInputs);
             calcultionInputs.CalculationResult = new CalculationsViewModel1.CalculationResult { Result1 = "1234" };
             return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
         }
@@ -80,6 +96,14 @@
             return new List<string>
             {
                 "per year", "per month", "per week"
+            };
+        }
+
+        private IEnumerable<string> GetAllCurrencies()
+        {
+            return new List<string>
+            {
+                "British Pound"
             };
         }
 
