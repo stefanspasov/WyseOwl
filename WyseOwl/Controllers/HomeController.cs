@@ -14,8 +14,11 @@
                                 AddressCountry =
                                     this.GetSelectListItems(
                                         this.GetAllAddressCountries()), 
+                                WorkCountry = this.GetSelectListItems(this.GetAllWorkCountries()),
+                                PerTime = this.GetSelectListItems(this.GetAllPerTime()),
                                 EligibleYear = 2000, 
-                                StartYear = 2000
+                                StartYear = 2000,
+                                CalculationResult = new CalculationsViewModel1.CalculationResult()
                             };
 
             return View(model);
@@ -31,9 +34,9 @@
             {
                 return View("Index", calcultionInputs);
             }
-            Thread.Sleep(2000);
+
             calcultionInputs.CalculationResult = new CalculationsViewModel1.CalculationResult { Result1 = "1234" };
-            return this.View("Index", calcultionInputs );
+            return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
         }
 
         public ActionResult About()
@@ -58,6 +61,25 @@
                 "North Ireland",
                 "Wales",
                 "Scotland"
+            };
+        }
+
+        private IEnumerable<string> GetAllWorkCountries()
+        {
+            return new List<string>
+            {
+                "England",
+                "North Ireland",
+                "Wales",
+                "Scotland"
+            };
+        }
+
+        private IEnumerable<string> GetAllPerTime()
+        {
+            return new List<string>
+            {
+                "per year", "per month", "per week"
             };
         }
 

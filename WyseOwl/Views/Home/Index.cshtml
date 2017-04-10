@@ -4,17 +4,150 @@
     ViewBag.Title = "Home Page";
 }
 
+
+<div class="jumbotron">
+    @*<h1>Student Loans Repayment Calculator UK</h1>*@
+    <p class="lead">Use this quick and easy calculator to see how long it takes to pay off your student loan and whether you can make any savings. </p>
+    <p class="lead">We don't store any of your information!</p>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-default" style="width: 100%; height: 25px" data-target="#calculationInputDiv" data-toggle="collapse" id="calculationInputButton">
+            <span class="glyphicon glyphicon-resize-vertical"></span>
+        </button>
+    </div>
+</div>
+<div class="collapse in" id="calculationInputDiv">
+    <section id="loginForm">
+        @using (Ajax.BeginForm("Index", "Home", new AjaxOptions() { HttpMethod = "POST",
+                                                                    //    UpdateTargetId = "Result",
+                                                                    OnSuccess = "onSuccess",
+                                                                    // OnBegin = "onBegin",
+                                                                    //  OnComplete = "onComplete"
+                                                                    //   LoadingElementId = "loader" // 
+                                                                  }))
+        {
+            @Html.AntiForgeryToken()
+            <hr/>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Balance)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Balance, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Balance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.SelectedAddressCountry)
+                </div>
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.SelectedAddressCountry, Model.AddressCountry, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    @Html.LabelFor(m => m.StartYear)
+                </div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
+                    <div id="beginYearSlider"></div>
+                </div>
+                <div class="col-md-1 col-xs-4">
+                    @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
+                </div>
+                <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    @Html.LabelFor(m => m.EligibleYear)
+                </div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
+                    <div id="eligilbeYearSlider"></div>
+                </div>
+                <div class="col-md-1 col-xs-4">
+                    @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
+                </div>
+                <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Paye)
+                </div>
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Paye, new { @id = "cbPaye" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.SelectedWorkCountry)
+                </div>
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.SelectedWorkCountry, Model.WorkCountry, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.GrossEarnings)
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.GrossEarnings, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.GrossEarnings, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.GrossEarningsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                </div>
+              </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="submit" value="Calculate" class="btn btn-default" />
+                    </div>
+                </div>
+
+                }
+
+</section>
+</div>
+
+
+<section id="socialLoginForm" style="display: none">
+    <div class="row">
+        <div class="col-md-8">
+            Your outstanding loan for this month is: &nbsp; <span id="spanResult1"></span>
+        </div>
+    </div>
+</section>
+
+
+
+@*<div id="loader" class=" aletr" style="display:none">
+    Loading...<img src="~/Images/ajax-loader.gif" />
+</div>*@
+
+
 @section Scripts {
     <script>
-        $(function() {
+        //# sourceURL=dynamicScript.js
+        function onSuccess(data) {
+            $("#calculationInputButton").click();
+            $("#socialLoginForm").css({ 'display': "block" });
+            $("#spanResult1").text(data.result.Result1);
+        }
+
+        $(function () {
             $("#beginYearSlider").slider({
-                  range: "max",
-                  min: 1990,
-                  max: 2017,
-                  value: $("#beginYear").val(),
-                  slide: function (event, ui) {
-                      $("#beginYear").val(ui.value);
-                  }
+                range: "max",
+                min: 1990,
+                max: 2017,
+                value: $("#beginYear").val(),
+                slide: function (event, ui) {
+                    $("#beginYear").val(ui.value);
+                }
             });
 
             $("#eligilbeYearSlider").slider({
@@ -29,111 +162,9 @@
 
             $("#cbPaye").switchButton(
             {
-                on_label: "Yes",        
+                on_label: "Yes",
                 off_label: "No"
             });
         });
     </script>
 }
-
-<div class="jumbotron">
-    @*<h1>Student Loans Repayment Calculator UK</h1>*@
-    <p class="lead">Use this quick and easy calculator to see how long it takes to pay off your student loan and whether you can make any savings. </p>
-    <p class="lead">We don't store any of your information!</p>
-</div>
-
-<button data-toggle="collapse" data-target="#calculationInputDiv" id="calculationInputButton" class="btn btn-info">Collapsible</button>
-
-<div class="collapse in" id="calculationInputDiv">
-        <section id="loginForm">
-            @using (Ajax.BeginForm("Index", "Home", new AjaxOptions() { HttpMethod = "POST" }, new {
-                UpdateTargetId = "Result",
-                OnSuccess = "onSuccess",
-                OnBegin = "onBegin",
-                OnComplete = "onComplete"
-            }))
-            {
-                @Html.AntiForgeryToken()
-                <hr/>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.LabelFor(m => m.Balance)
-                    </div>
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => m.Balance, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Balance, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.LabelFor(m => m.SelectedAddressCuntry)
-                    </div>
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.SelectedAddressCuntry, Model.AddressCountry, "-SELECT-", new { @class = "form-control" })
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        @Html.LabelFor(m => m.StartYear)
-                    </div>
-                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
-                        <div id="beginYearSlider"></div>
-                    </div>
-                    <div class="col-md-1 col-xs-4">
-                        @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
-                    </div>
-                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        @Html.LabelFor(m => m.EligibleYear)
-                    </div>
-                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
-                        <div id="eligilbeYearSlider"></div>
-                    </div>
-                    <div class="col-md-1 col-xs-4">
-                        @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
-                    </div>
-                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.LabelFor(m => m.Paye);
-                    </div>
-                    <div class="col-md-2">
-                        @Html.CheckBoxFor(m=>m.Paye, new {@id = "cbPaye"})
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <input type="submit" value="Calculate" class="btn btn-default"/>
-                    </div>
-                </div>
-            }
-
-        </section>
-    </div>
-    <h1>
-        <span id="Result"></span>
-    </h1>
-
-@if (Model?.CalculationResult != null)
-{
-    <section id="socialLoginForm">
-        <div class="row">
-            <div class="col-md-8">
-                Your outstanding loan for this month is: &nbsp; @Html.LabelFor(m => m.CalculationResult.Result1, Model.CalculationResult.Result1)
-            </div>
-        </div>
-    </section>
-
-    <script  type="text/javascript">
-       $("#calculationInputButton").click();
-    </script>
-}
-
-

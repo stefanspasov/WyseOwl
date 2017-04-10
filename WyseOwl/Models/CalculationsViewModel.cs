@@ -15,8 +15,15 @@ namespace WyseOwl.Models
 
             public IEnumerable<SelectListItem> AddressCountry { get; set; }
 
+            public IEnumerable<SelectListItem> WorkCountry { get; set; }
+            public IEnumerable<SelectListItem> PerTime { get; set; }
+
+
             [Display(Name = "Country of origin")]
-            public string SelectedAddressCuntry { get; set; }
+            public string SelectedAddressCountry { get; set; }
+
+            [Display(Name = "Country of work")]
+            public string SelectedWorkCountry { get; set; }
 
             [Display(Name = "Beginning year")]
             [Range(1990, 2017, ErrorMessage = "Please select between 1990 and 2017")]
@@ -29,13 +36,20 @@ namespace WyseOwl.Models
             [Display(Name = "Paye")]
             public bool Paye { get; set; }
 
+            [Display(Name = "Gross earnings")]
+            public int GrossEarnings { get; set; }
+
+            [Display(Name = "Gross earnings per")]
+            public string GrossEarningsPer { get; set; }
+
 
             public CalculationResult CalculationResult { get; set; }
         }
 
         public class CalculationResult
         {
-            [Display(Name = "Result1")]
+            [Display(Name = "Result 1")]
+            [DisplayFormat(NullDisplayText = "EMPTY")]
             public string Result1 { get; set; }
         }
     }
