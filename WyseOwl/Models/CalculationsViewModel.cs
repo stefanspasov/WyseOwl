@@ -11,17 +11,17 @@ namespace WyseOwl.Models
     {
         public class FirstCalculation
         {
-            [Required]
+            // [Required]
             [Display(Name = "Balance")]
             [JsonProperty(PropertyName = "dl")]
             public string Balance { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Country of origin")]
             [JsonProperty(PropertyName = "l")]
             public string SelectedAddressCountry { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Country of work")]
             [JsonProperty(PropertyName = "c")] 
             public string SelectedWorkCountry { get; set; }
@@ -36,31 +36,31 @@ namespace WyseOwl.Models
             [JsonProperty(PropertyName = "ye")]
             public int EligibleYear { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Paye")]
             [JsonProperty(PropertyName = "paye")]
             public bool Paye { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Gross earnings")]
             [JsonProperty(PropertyName = "ge")]
             public int GrossEarnings { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Gross earnings per")]
             [JsonProperty(PropertyName = "td")]
             public string SelectedGrossEarningsPer { get; set; }
 
-            [Required]
+            // [Required]
             [Display(Name = "Repayments")]
             [JsonProperty(PropertyName = "ar")]
             public int Repayments { get; set; }
 
-            [Required]
+            // [Required]
             [JsonProperty(PropertyName = "curr_ar")]
             public string SelectedRepaymentsCurrency { get; set; }
 
-            [Required]
+            // [Required]
             [JsonProperty(PropertyName = "td_ar")]
             public string SelectedRepaymentsPer { get; set; }
 

@@ -29,13 +29,9 @@
             LoadingElementId = "loader"
         }))
         {
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div id="loader" class=" aletr" style="width: 100%; height: 100%; display: none">
-                        Loading...<img src="~/Content/loader.gif" />
-                    </div>
-                </div>
-            </div>
+                    <div id="loader" class=" aletr" style="opacity:0.5; background: #000; width:100%;height:100%; z-index: 10;top:0; left:0; position: fixed; display: none">
+                        Loading...<img src="~/Content/loader.gif" style="background: no-repeat scroll center center #FFF; position: absolute; height: 100%; width: 100%;"/>
+                     </div>
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
