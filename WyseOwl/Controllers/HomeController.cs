@@ -41,6 +41,7 @@
                 return View("Index", calcultionInputs);
             }
 
+
             var client = new NodeCommunication();
             calcultionInputs.CalculationResult  = client.SendFirstCalculation(calcultionInputs);
             return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
