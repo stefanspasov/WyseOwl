@@ -73,8 +73,8 @@ namespace WyseOwl.Models
 
             public string curr_bulk { get; set; }
 
-            public string pg { get; set; }
-
+            [Display(Name = "Post graduate loan?")]
+            public bool PostGraduateLoan { get; set; }
 
             public IEnumerable<SelectListItem> AddressCountry { get; set; }
 

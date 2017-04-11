@@ -45,48 +45,62 @@
                         @Html.ValidationMessageFor(m => m.Balance, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <br />
+            <br/>
+
                 <div class="row">
                     <div class="col-md-4">
                         @Html.LabelFor(m => m.SelectedAddressCountry)
                     </div>
                     <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.SelectedAddressCountry, Model.AddressCountry, "-SELECT-", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.SelectedAddressCountry, Model.AddressCountry, "-SELECT-", new { @class = "form-control", @id = "ddlAddressCountry" })
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        @Html.LabelFor(m => m.StartYear)
-                    </div>
-                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
-                        <div id="beginYearSlider"></div>
-                    </div>
-                    <div class="col-md-1 col-xs-4">
-                        @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
-                    </div>
-                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
+            <br/>
+
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    @Html.LabelFor(m => m.StartYear)
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        @Html.LabelFor(m => m.EligibleYear)
-                    </div>
-                    <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
-                        <div id="eligilbeYearSlider"></div>
-                    </div>
-                    <div class="col-md-1 col-xs-4">
-                        @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
-                    </div>
-                    <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
+                    <div id="beginYearSlider"></div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.LabelFor(m => m.Paye)
-                    </div>
-                    <div class="col-md-2">
-                        @Html.CheckBoxFor(m => m.Paye, new { @id = "cbPaye" })
-                    </div>
+                <div class="col-md-1 col-xs-4">
+                    @Html.TextBoxFor(m => m.StartYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "beginYear" })
                 </div>
+                <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    @Html.LabelFor(m => m.EligibleYear)
+                </div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
+                    <div id="eligilbeYearSlider"></div>
+                </div>
+                <div class="col-md-1 col-xs-4">
+                    @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
+                </div>
+                <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Paye)
+                </div>
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Paye, new { @id = "cbPaye" })
+                </div>
+            </div>
+            <br />
+            <div class="row" id="divPostgraduateLoan" style="display: none">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.PostGraduateLoan)
+                </div>
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.PostGraduateLoan, new { @id = "cbPostgraduateLoan" })
+                </div>
+            </div>
+            <br />
                 <div class="row">
                     <div class="col-md-4">
                         @Html.LabelFor(m => m.SelectedWorkCountry)
@@ -132,7 +146,6 @@
                         <input type="submit" value="Calculate" class="btn btn-default" />
                     </div>
                 </div>
-
         }
 
     </section>
@@ -218,6 +231,7 @@
                 value: $("#beginYear").val(),
                 slide: function (event, ui) {
                     $("#beginYear").val(ui.value);
+                    showOrHidePostGraduateLoan();
                 }
             });
 
@@ -236,6 +250,23 @@
                 on_label: "Yes",
                 off_label: "No"
             });
+
+            $("#cbPostgraduateLoan").switchButton(
+           {
+               on_label: "Yes",
+               off_label: "No"
+           });
         });
+
+        $("#ddlAddressCountry").change(showOrHidePostGraduateLoan);
+
+        function showOrHidePostGraduateLoan() {
+            if ($('#ddlAddressCountry').val() === "England" && parseInt($("#beginYear").val()) > 2012) {
+                $('#divPostgraduateLoan').show();
+            } else {
+                $('#divPostgraduateLoan').hide();
+            }
+        };
+
     </script>
 }

@@ -44,7 +44,6 @@
             calcultionInputs.age_y = "1991";
             calcultionInputs.bulk = "500";
             calcultionInputs.curr_bulk = "British Pound";
-            calcultionInputs.pg = "Yes";
 
             var client = new NodeCommunication();
             calcultionInputs.CalculationResult  = client.SendFirstCalculation(calcultionInputs);
