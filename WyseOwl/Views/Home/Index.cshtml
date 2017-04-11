@@ -139,7 +139,6 @@
                     <div class="col-md-2 col-xs-6" style="padding-top: 5px">
                         @Html.DropDownListFor(m => m.SelectedRepaymentsCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
                     </div>
-                   
                 </div>
             <br/>
             <br />
@@ -153,61 +152,121 @@
     </section>
 </div>
 
-
 <section id="socialLoginForm" style="display: none">
     <br />
     <br />
     <br />
 
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Your outstanding loan for this month is: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult1"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult1"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Length of time until your loan is payed off: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult2"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult2"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             By paying off extra, you will save: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult3"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult3"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Total amount spent on voluntary repayments: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult4"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult4"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Equivalent monthly voluntary repayments: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult5"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult5"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Equivalent to an interest rate of: &nbsp;
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult6"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult6"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Your loan will be canceled in at most: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult7"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult7"></span></b></div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-8" style="padding-top: 5px">
             Your loan type: &nbsp; 
         </div>
-        <div class="col-md-4 col-xs-4"><span id="spanResult8"></span></div>
+        <div class="col-md-4 col-xs-4"><b><span id="spanResult8"></span></b></div>
     </div>
 </section>
+
+
+<div>
+    <section>
+        @using (Ajax.BeginForm("Recalculate", "Home", new AjaxOptions() { HttpMethod = "POST" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-md-4 col-xs-4" style="padding-top: 5px">
+                    @Html.LabelFor(m => m.CalculationResult.RecalcRepayment) &nbsp;
+                </div>
+                <div class="col-md-1 col-xs-3" style="padding-top: 5px">
+                    @Html.TextBoxFor(m => m.CalculationResult.RecalcRepayment, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CalculationResult.RecalcRepayment, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 col-xs-5" style="padding-top: 5px">
+                    @Html.DropDownListFor(m => m.CalculationResult.RecalcRepaymentPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 5px">
+                    @Html.DropDownListFor(m => m.CalculationResult.RecalcRepaymentCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-xs-4">
+                    @Html.LabelFor(m => m.CalculationResult.RecalcOneTime)
+                </div>
+                <div class="col-md-2 col-xs-3">
+                    @Html.TextBoxFor(m => m.CalculationResult.RecalcOneTime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CalculationResult.RecalcOneTime, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 col-xs-5">
+                    @Html.DropDownListFor(m => m.CalculationResult.RecalcOneTimeCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
+                </div>
+            </div>
+
+            @Html.HiddenFor(m=>m.CalculationResult.LoanType, new { @id="prevResultLoanType"})
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultGef, new { @id= "PrevResultGef" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultLet_p1, new { @id= "PrevResultLet_p1" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultLet_p2, new { @id= "PrevResultLet_p2" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultTdn, new { @id= "PrevResultTdn" })
+
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultUet, new { @id= "PrevResultUet" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultRl, new { @id= "PrevResultRl" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultCancel, new { @id= "PrevResultCancel" })
+
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultJ1, new { @id= "PrevResultJ1" })
+            @Html.HiddenFor(m=>m.CalculationResult.PrevResultLet_pl, new { @id= "PrevResultLet_pl" })
+
+            <div class="row">
+                <div class="col-md-10 col-xs-12">
+                    <input type="submit" value="Recalculate" class="btn btn-info" style="width: 100%" />
+                </div>
+            </div>
+        }
+    </section>
+</div>
+
 
 @section Scripts {
     <script>
@@ -223,6 +282,19 @@
             $("#spanResult6").text(data.result.InterestRate);
             $("#spanResult7").text(data.result.CancelledIn);
             $("#spanResult8").text(data.result.LoanType);
+
+            $("#prevResultLoanType").val(data.result.LoanType);
+
+            $("#PrevResultGef").val(data.result.PrevResultGef);
+            $("#PrevResultTdn").val(data.result.PrevResultTdn);
+            $("#PrevResultLet_p1").val(data.result.PrevResultLet_p1);
+            $("#PrevResultLet_p2").val(data.result.PrevResultLet_p2);
+
+            $("#PrevResultUet").val(data.result.PrevResultUet);
+            $("#PrevResultRl").val(data.result.PrevResultRl);
+            $("#PrevResultCancel").val(data.result.PrevResultCancel);
+            $("#PrevResultJ1").val(data.result.PrevResultJ1);
+            $("#PrevResultLet_pl").val(data.result.PrevResultLet_pl);
         }
 
         $(function () {

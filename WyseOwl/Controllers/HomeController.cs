@@ -47,6 +47,22 @@
             return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Recalculate(CalculationsViewModel1.FirstCalculation calcultionInputs)
+        {
+            calcultionInputs.AddressCountry = GetSelectListItems(GetAllAddressCountries());
+            calcultionInputs.WorkCountry = GetSelectListItems(GetAllWorkCountries());
+            calcultionInputs.PerTime = GetSelectListItems(GetAllPerTime());
+            calcultionInputs.Currency = GetSelectListItems(GetAllCurrencies());
+
+            var a = calcultionInputs.CalculationResult;
+            var client = new NodeCommunication();
+            calcultionInputs.CalculationResult = client.SendSecondCalculation(calcultionInputs);
+            return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -100,6 +100,29 @@ namespace WyseOwl.Models
             public string InterestRate { get; set; }
             public string CancelledIn { get; set; }
             public string LoanType { get; set; }
+
+            public string PrevResultGef { get; set; }
+            public string PrevResultTdn { get; set; }
+            public string PrevResultLet_p1 { get; set; }
+            public string PrevResultLet_p2 { get; set; }
+            public string PrevResultUet { get; set; }
+            public string PrevResultRl { get; set; }
+            public string PrevResultCancel { get; set; }
+
+            public string PrevResultJ1 { get; set; }
+            public string PrevResultLet_pl { get; set; }
+
+            [Display(Name = "Voluntary repayment")]
+            public string RecalcRepayment { get; set; }
+
+            public string RecalcRepaymentCurrency { get; set; }
+
+            public string RecalcRepaymentPer { get; set; }
+
+            [Display(Name = "One time repayment")]
+            public string RecalcOneTime { get; set; }
+
+            public string RecalcOneTimeCurrency { get; set; }
         }
     }
 }
