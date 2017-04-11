@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace WyseOwl
 {
@@ -39,6 +38,7 @@ namespace WyseOwl
             bundles.Add(new ScriptBundle("~/bundles/switch").Include(
             "~/Scripts/jquery.switchButton.js"));
 
+            bundles.Add(new LessBundle("~/Content/less").Include("~/Content/*.less"));
 
             //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
             //              "~/Content/themes/base/jquery-ui.min.css",

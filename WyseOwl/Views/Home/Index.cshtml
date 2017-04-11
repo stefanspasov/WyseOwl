@@ -26,12 +26,12 @@
             OnSuccess = "onSuccess",
             // OnBegin = "onBegin",
             //  OnComplete = "onComplete"
-            LoadingElementId = "loader"
+            //  LoadingElementId = "loader"
         }))
         {
-                <div id="loader" class=" aletr" style="opacity:0.5; background: #000; width:100%;height:100%; z-index: 10;top:0; left:0; position: fixed; display: none">
+                @*<div id="loader" class=" aletr" style="opacity:0.5; background: #000; width:100%;height:100%; z-index: 10;top:0; left:0; position: fixed; display: none">
                     Loading...<img src="~/Content/loader.gif" style="background: no-repeat scroll center #FFF; position: absolute; height: 100%; width: 100%;"/>
-                </div>
+                </div>*@
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -98,31 +98,31 @@
                 <br />
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-xs-3">
                         @Html.LabelFor(m => m.GrossEarnings)
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-2">
                         @Html.TextBoxFor(m => m.GrossEarnings, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.GrossEarnings, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-3">
                         @Html.DropDownListFor(m => m.SelectedGrossEarningsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
                     </div>
                 </div>
                 <br />
 
                 <div class="row">
-                    <div class="col-md-4">
-                        @Html.LabelFor(m => m.Repayments)
+                    <div class="col-md-4 col-xs-3">
+                        @Html.LabelFor(m => m.Repayments) &nbsp;
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-xs-2">
                         @Html.TextBoxFor(m => m.Repayments, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Repayments, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-3">
                         @Html.DropDownListFor(m => m.SelectedRepaymentsCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-3">
                         @Html.DropDownListFor(m => m.SelectedRepaymentsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
                     </div>
                 </div>
@@ -145,44 +145,52 @@
     <br />
 
     <div class="row">
-        <div class="col-md-8">
-            Your outstanding loan for this month is: &nbsp; <span id="spanResult1"></span>
+        <div class="col-md-8 col-xs-8">
+            Your outstanding loan for this month is: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult1"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Length of time until your loan is payed off: &nbsp; <span id="spanResult2"></span>
+        <div class="col-md-8 col-xs-8">
+            Length of time until your loan is payed off: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult2"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            By paying off extra, you will save: &nbsp; <span id="spanResult3"></span>
+        <div class="col-md-8 col-xs-8">
+            By paying off extra, you will save: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult3"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Total amount spent on voluntary repayments: &nbsp; <span id="spanResult4"></span>
+        <div class="col-md-8 col-xs-8">
+            Total amount spent on voluntary repayments: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult4"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Equivalent monthly voluntary repayments: &nbsp; <span id="spanResult5"></span>
+        <div class="col-md-8 col-xs-8">
+            Equivalent monthly voluntary repayments: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult5"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Equivalent to an interest rate of: &nbsp; <span id="spanResult6"></span>
+        <div class="col-md-8 col-xs-8">
+            Equivalent to an interest rate of: &nbsp;
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult6"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Your loan will be canceled in at most: &nbsp; <span id="spanResult7"></span>
+        <div class="col-md-8 col-xs-8">
+            Your loan will be canceled in at most: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult7"></span></div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            Your loan type: &nbsp; <span id="spanResult8"></span>
+        <div class="col-md-8 col-xs-8">
+            Your loan type: &nbsp; 
         </div>
+        <div class="col-md-4 col-xs-4"><span id="spanResult8"></span></div>
     </div>
 </section>
 
