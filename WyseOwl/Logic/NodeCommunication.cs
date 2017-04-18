@@ -8,7 +8,7 @@
     {
         public CalculationsViewModel1.CalculationResult SendFirstCalculation(CalculationsViewModel1.FirstCalculation calc)
         {
-            var client = new RestClient("http://wyseowlnode.azurewebsites.net");
+            var client = new RestClient("http://localhost:8081/");
             var request = new RestRequest("calc", Method.POST) { RequestFormat = DataFormat.Json };
 
             //if (calc.StartYear < 1999)
