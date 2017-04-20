@@ -152,7 +152,7 @@
     </section>
 </div>
 
-<section id="socialLoginForm" style="display: none">
+<section id="sectionResults" style="display: none">
     <br />
     <br />
     <br />
@@ -208,9 +208,9 @@
 </section>
 
 
-<div>
+<div id="divRecalc" style="display: none">
     <section>
-        @using (Ajax.BeginForm("Recalculate", "Home", new AjaxOptions() { HttpMethod = "POST" }))
+        @using (Ajax.BeginForm("Recalculate", "Home", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onSuccessRecalc", }))
         {
             @Html.AntiForgeryToken()
             <hr />
@@ -231,7 +231,7 @@
                     @Html.DropDownListFor(m => m.CalculationResult.RecalcRepaymentCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
                 </div>
             </div>
-
+            <br/>
             <div class="row">
                 <div class="col-md-4 col-xs-4">
                     @Html.LabelFor(m => m.CalculationResult.RecalcOneTime)
@@ -273,7 +273,7 @@
         //# sourceURL=dynamicScript.js
         function onSuccess(data) {
             $("#calculationInputButton").click();
-            $("#socialLoginForm").css({ 'display': "block" });
+            $("#sectionResults").css({ 'display': "block" });
             $("#spanResult1").text(data.result.OutstandingLoan);
             $("#spanResult2").text(data.result.LengthUntillPaidOff);
             $("#spanResult3").text(data.result.YouSave);
@@ -295,6 +295,22 @@
             $("#PrevResultCancel").val(data.result.PrevResultCancel);
             $("#PrevResultJ1").val(data.result.PrevResultJ1);
             $("#PrevResultLet_pl").val(data.result.PrevResultLet_pl);
+
+            $("#divRecalc").show("slow");
+
+        }
+
+        function onSuccessRecalc(data) {
+           // $("#spanResult1").text(data.result.OutstandingLoan);
+
+            $("#spanResult2").text(data.result.LengthUntillPaidOff);
+            $("#spanResult3").text(data.result.YouSave);
+            $("#spanResult4").text(data.result.TotalAmountRepayments);
+            $("#spanResult5").text(data.result.MonthlyRepayments);
+            $("#spanResult6").text(data.result.InterestRate);
+
+          //  $("#spanResult7").text(data.result.CancelledIn);
+          //  $("#spanResult8").text(data.result.LoanType);
         }
 
         $(function () {

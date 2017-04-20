@@ -1,0 +1,9 @@
+{
+  "name": "wyse-owl-node",
+  "version": "0.0.0",
+  "description": "WyseOwlNode",
+  "main": "server.js",
+  "author": {
+    "name": "stespa"
+  }
+}

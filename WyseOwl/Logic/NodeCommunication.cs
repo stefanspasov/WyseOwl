@@ -6,9 +6,10 @@
 
     public class NodeCommunication
     {
+        private const string URL = "http://localhost:1536";
         public CalculationsViewModel1.CalculationResult SendFirstCalculation(CalculationsViewModel1.FirstCalculation calc)
         {
-            var client = new RestClient("http://localhost:8081/");
+            var client = new RestClient(URL);
             var request = new RestRequest("calc", Method.POST) { RequestFormat = DataFormat.Json };
 
             //if (calc.StartYear < 1999)
@@ -95,7 +96,7 @@
 
         public CalculationsViewModel1.CalculationResult SendSecondCalculation(CalculationsViewModel1.FirstCalculation calc)
         {
-            var client = new RestClient("http://wyseowlnode.azurewebsites.net");
+            var client = new RestClient(URL);
             var request = new RestRequest("recalc", Method.POST) { RequestFormat = DataFormat.Json };
             request.AddBody(new
             {
@@ -119,13 +120,30 @@
             try
             {
                 var result = client.Execute(request);
-                return null;
+                var noBrackets = result.Content.Substring(1, result.Content.Length - 2);
+                noBrackets = noBrackets.Replace(Environment.NewLine, "");
+                var splitted = noBrackets.Split('!');
+                var lengthuntil = splitted[0].Remove(0, 4);
+                var yousave = splitted[1].Remove(0, 6);
+                var totalrepayments = splitted[2].Remove(0, 6);
+                var monthlyrepayments = splitted[3].Remove(0, 6);
+                var intrest = splitted[4].Remove(0, 5);
+                intrest = intrest.Remove(intrest.Length - 1);
+                intrest = intrest.Replace("\"", "");
+                return new CalculationsViewModel1.CalculationResult
+                           {
+                               LengthUntillPaidOff = lengthuntil,
+                               YouSave = yousave,
+                               TotalAmountRepayments = totalrepayments,
+                               MonthlyRepayments = monthlyrepayments,
+                               InterestRate = intrest
+                           };
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
-                throw;
+                // LOG
             }
+            return null;
         }
     }
  }
