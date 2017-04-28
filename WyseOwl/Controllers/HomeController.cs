@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
 
     using WyseOwl.Models;
     using System.Web.Mvc;
@@ -57,7 +59,6 @@
             calcultionInputs.PerTime = GetSelectListItems(GetAllPerTime());
             calcultionInputs.Currency = GetSelectListItems(GetAllCurrencies());
 
-            var a = calcultionInputs.CalculationResult;
             var client = new NodeCommunication();
             calcultionInputs.CalculationResult = client.SendSecondCalculation(calcultionInputs);
             return this.Json(new { success = true, result = calcultionInputs.CalculationResult });
@@ -76,6 +77,36 @@
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Contact(ContactModel contactModel)
+        {
+            ViewBag.Message = "Your contact page.";
+
+            var body = $"<p>Email From: {contactModel.Name} ({contactModel.Email})</p><p>Message:</p><p>{contactModel.Message}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("stefanspasov90@gmail.com"));  
+            message.To.Add(new MailAddress("wyse.owl.partners@gmail.com"));  
+            message.From = new MailAddress("stefanspasov90@gmail.com");
+            message.Subject = "New message from calculator Contact us";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential { UserName = "stefanspasov90@gmail.com", 
+                                                         Password = "pickaboo4" 
+                                                       };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+            }
+
+            return View();
+        }
+
 
         private IEnumerable<string> GetAllAddressCountries()
         {
@@ -354,7 +385,7 @@
             return new List<string>
                        {
                            "British Pound                              ",
-                           "                Afghanis                   ",
+                           "Afghanis                   ",
                            "Leke                                       ",
                            "Algerian Dinar                             ",
                            "U.S. Dollar                                ",

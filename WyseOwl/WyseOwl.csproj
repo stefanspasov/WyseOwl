@@ -215,6 +215,7 @@
     </Compile>
     <Compile Include="Logic\NodeCommunication.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CalculationsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -227,6 +228,12 @@
     <Content Include="Content\jquery.switchButton.css" />
     <Content Include="Content\loader.gif" />
     <Content Include="Content\overlay.jpg" />
+    <Content Include="Content\Social\facebook-hover-gray.png" />
+    <Content Include="Content\Social\facebook-hover.png" />
+    <Content Include="Content\Social\google-hover-gray.png" />
+    <Content Include="Content\Social\google-hover.png" />
+    <Content Include="Content\Social\twitter-hover-gray.png" />
+    <Content Include="Content\Social\twitter-hover.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

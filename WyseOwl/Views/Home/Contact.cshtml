@@ -1,12 +1,106 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
+﻿@using WyseOwl.Models
+@model ContactModel
+    <div class="jumbotron" style="background-image: url('https://dvyvvujm9h0uq.cloudfront.net/images/pixpa-inner-banner.jpg');">
+        <h2 style="color: white">We help you save!</h2>
+        <p style="color: white">Please fill in the quick form and we will be in touch with lightening speed!</p>
+    </div>
 
-<p>
-    If you are emailing regarding an issue, please try to give us as good a description of your issue as you can, so we can resolve it quickly.
-</p>
+    <div class="row">
+        <div class="col-md-12">
+            If you are emailing regarding an issue, please try to give us as good a description of your issue as you can, so we can resolve it quickly.
+        </div>
+    </div>
+    @using (Ajax.BeginForm("Contact", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess" }))
+    {
+        <div class="row">
+            <div class="col-lg-5" style="padding-top: 10px">
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Your Name...", @class = "form-control", required = "required" })
+            </div>
+          
+        </div>
 
-<address>
-    <strong>WyzeOwl Staff:</strong>   <a href="mailto:wyse.owl.partners@gmail.com">wyse.owl.partners@gmail.com</a><br />
-</address>
+        <div class="row">
+            <div class="col-lg-5" style="padding-top: 10px">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Your Email...", @class = "form-control", required = "required" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5" style="padding-top: 10px">
+                @Html.TextAreaFor(m => m.Message, new { placeholder = "Message...", @class = "form-control", required = "required" })
+            </div>
+            <div class="col-lg-6">
+                <div class="social-roll social-twitter">&nbsp;</div>
+                <div class="social-roll social-facebook">&nbsp;</div>
+                <div class="social-roll social-google">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3" style="padding-top: 10px">
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </div>
+    }
+
+    @*<address>
+        <strong>WyzeOwl Staff:</strong> <a href="mailto:wyse.owl.partners@gmail.com">wyse.owl.partners@gmail.com</a><br />
+    </address>*@
+
+    <style>
+        .social-roll {
+            height: 48px;
+            width: 48px;
+            margin: 10px;
+            float: left;
+            border-radius: 50%;
+            -webkit-transition: all ease 0.3s;
+            -moz-transition: all ease 0.3s;
+            -o-transition: all ease 0.3s;
+            -ms-transition: all ease 0.3s;
+            transition: all ease 0.3s;
+        }
+
+        .social-roll:hover {
+                box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+         }
+
+        .social-twitter {
+            background-image: url('../../Content/Social/twitter-hover-gray.png');
+        }
+
+        .social-twitter:hover {
+                background-image: url('../../Content/Social/twitter-hover.png');
+        }
+
+        .social-facebook {
+            background-image: url('../../Content/Social/facebook-hover-gray.png');
+        }
+
+        .social-facebook:hover {
+                background-image: url('../../Content/Social/facebook-hover.png');
+        }
+
+        .social-google {
+            background-image: url('../../Content/Social/google-hover-gray.png');
+        }
+
+        .social-google:hover {
+                background-image: url('../../Content/Social/google-hover.png');
+        }
+
+    </style>
+
+    @section Scripts {
+        <script>
+            function onSuccess(data) {
+            }
+
+        </script>
+    }
+
