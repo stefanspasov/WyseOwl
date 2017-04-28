@@ -93,6 +93,7 @@
             message.Body = body;
             message.IsBodyHtml = true;
 
+
             using (var smtp = new SmtpClient())
             {
                 var credential = new NetworkCredential { UserName = "stefanspasov90@gmail.com", 
@@ -102,6 +103,7 @@
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 await smtp.SendMailAsync(message);
                 return View();
             }
