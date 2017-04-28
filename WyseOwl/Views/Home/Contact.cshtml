@@ -43,9 +43,30 @@
         </div>
     }
 
-    @*<address>
-        <strong>WyzeOwl Staff:</strong> <a href="mailto:wyse.owl.partners@gmail.com">wyse.owl.partners@gmail.com</a><br />
-    </address>*@
+    <!-- Trigger the modal with a button -->
+    <div style="display: none">
+        <button type="button" id="btnModal" data-toggle="modal" data-target="#myModal"></button>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thank you!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>We will contact you shortly!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <style>
         .social-roll {
@@ -99,6 +120,7 @@
     @section Scripts {
         <script>
             function onSuccess(data) {
+                $("#btnModal").click();
             }
 
         </script>

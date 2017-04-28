@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Threading.Tasks;
 
     using WyseOwl.Models;
     using System.Web.Mvc;
@@ -79,7 +80,7 @@
         }
 
         [HttpPost]
-        public ActionResult Contact(ContactModel contactModel)
+        public async Task<ActionResult> Contact(ContactModel contactModel)
         {
             ViewBag.Message = "Your contact page.";
 
@@ -101,10 +102,9 @@
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
-                smtp.Send(message);
+                await smtp.SendMailAsync(message);
+                return View();
             }
-
-            return View();
         }
 
 
