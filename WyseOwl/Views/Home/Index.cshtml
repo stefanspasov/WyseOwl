@@ -432,15 +432,18 @@
             var isAgeCondition2 = $('#ddlAddressCountry').val() === "Scotland" && parseInt($("#beginYear").val()) < 2007;
             if (isAgeCondition1 || isAgeCondition2) {
                 $('#divAge').show();
+                $('#divAge').prop('required', true);
                 $('#divEligibleYear').hide();
             } else {
                 $('#divEligibleYear').show();
                 $('#divAge').hide();
+                $('#divAge').prop('required', false);
             }
 
             if ($('#ddlAddressCountry').val() === '-SELECT-') {
                 $('#divEligibleYear').hide();
                 $('#divAge').hide();
+                $('#divAge').prop('required', false);
             }
         };
 

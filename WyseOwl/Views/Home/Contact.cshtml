@@ -29,11 +29,6 @@
             <div class="col-lg-5" style="padding-top: 10px">
                 @Html.TextAreaFor(m => m.Message, new { placeholder = "Message...", @class = "form-control", required = "required" })
             </div>
-            <div class="col-lg-6">
-                <div class="social-roll social-twitter">&nbsp;</div>
-                <div class="social-roll social-facebook">&nbsp;</div>
-                <div class="social-roll social-google">&nbsp;</div>
-            </div>
         </div>
 
         <div class="row">
@@ -68,54 +63,7 @@
         </div>
     </div>
 
-    <style>
-        .social-roll {
-            height: 48px;
-            width: 48px;
-            margin: 10px;
-            float: left;
-            border-radius: 50%;
-            -webkit-transition: all ease 0.3s;
-            -moz-transition: all ease 0.3s;
-            -o-transition: all ease 0.3s;
-            -ms-transition: all ease 0.3s;
-            transition: all ease 0.3s;
-        }
-
-        .social-roll:hover {
-                box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
-                -webkit-transform: rotate(360deg);
-                -moz-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                transform: rotate(360deg);
-         }
-
-        .social-twitter {
-            background-image: url('../../Content/Social/twitter-hover-gray.png');
-        }
-
-        .social-twitter:hover {
-                background-image: url('../../Content/Social/twitter-hover.png');
-        }
-
-        .social-facebook {
-            background-image: url('../../Content/Social/facebook-hover-gray.png');
-        }
-
-        .social-facebook:hover {
-                background-image: url('../../Content/Social/facebook-hover.png');
-        }
-
-        .social-google {
-            background-image: url('../../Content/Social/google-hover-gray.png');
-        }
-
-        .social-google:hover {
-                background-image: url('../../Content/Social/google-hover.png');
-        }
-
-    </style>
+   
 
     @section Scripts {
         <script>

@@ -56,7 +56,7 @@
                                    age_m = age_m, //calc.age_m, 
                                    age_y = age_y, //calc.age_y,
                                 //   bulk = "500", //calc.bulk, 
-                                   bulk = calc.bulk, 
+                                   bulk = calc.bulk ?? "0", 
                                   // curr_bulk = "British Pound", //calc.curr_bulk, 
                                    curr_bulk = calc.curr_bulk, 
                                    pg = calc.PostGraduateLoan ? "Yes" : "No"

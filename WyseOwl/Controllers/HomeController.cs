@@ -371,7 +371,7 @@
                            "Yemen                                                                    ",
                            "Zambia                                                                   ",
                            "Zimbabwe                                                                 ",
-                       };
+                       }.Distinct();
         }
 
         private IEnumerable<string> GetAllPerTime()
@@ -633,7 +633,7 @@
                            "Yemeni Rial                                ",
                            "Zambian Kwacha                             ",
                            "Zimbabwean Dollar                          ",
-                       };
+                       }.Distinct();
         }
 
         private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)

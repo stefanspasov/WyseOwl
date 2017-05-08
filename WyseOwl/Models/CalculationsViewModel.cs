@@ -67,7 +67,6 @@ namespace WyseOwl.Models
             [JsonProperty(PropertyName = "td_ar")]
             public string SelectedRepaymentsPer { get; set; }
 
-            [Required]
             [Display(Name = "Age")]
             public string Age { get; set; }
 
@@ -89,6 +88,7 @@ namespace WyseOwl.Models
             public IEnumerable<SelectListItem> PerTime { get; set; }
 
             public IEnumerable<SelectListItem> Currency { get; set; }
+
 
 
 
