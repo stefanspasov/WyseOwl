@@ -2,6 +2,7 @@
 
 namespace WyseOwl.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
 
@@ -11,12 +12,12 @@ namespace WyseOwl.Models
     {
         public class FirstCalculation
         {
-            // [Required]
+            [Required]
             [Display(Name = "Balance")]
             [JsonProperty(PropertyName = "dl")]
             public string Balance { get; set; }
 
-            // [Required]
+            [Required]
             [Display(Name = "Country of origin")]
             [JsonProperty(PropertyName = "l")]
             public string SelectedAddressCountry { get; set; }
@@ -29,8 +30,10 @@ namespace WyseOwl.Models
             [Display(Name = "Beginning year")]
             [Range(1990, 2017, ErrorMessage = "Please select between 1990 and 2017")]
             [JsonProperty(PropertyName = "ys")]
+            [Required]
             public int StartYear { get; set; }
 
+            [Required]
             [Display(Name = "Eligible year")]
             [Range(1990, 2017, ErrorMessage = "Please select between 1990 and 2017")]
             [JsonProperty(PropertyName = "ye")]
@@ -41,7 +44,7 @@ namespace WyseOwl.Models
             [JsonProperty(PropertyName = "paye")]
             public bool Paye { get; set; }
 
-            // [Required]
+            [Required]
             [Display(Name = "Gross earnings")]
             [JsonProperty(PropertyName = "ge")]
             public int GrossEarnings { get; set; }
@@ -64,6 +67,9 @@ namespace WyseOwl.Models
             [JsonProperty(PropertyName = "td_ar")]
             public string SelectedRepaymentsPer { get; set; }
 
+            [Required]
+            [Display(Name = "Age")]
+            public string Age { get; set; }
 
             public string age_m { get; set; }
 

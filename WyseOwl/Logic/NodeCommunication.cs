@@ -16,25 +16,50 @@
             //{
             //    calc.StartYear = "Before 1999";
             //}
+            string age_m = null;
+            string age_y = null;
+            if (!string.IsNullOrWhiteSpace(calc.Age))
+            {
+                try
+                {
+                    var splittedAge = calc.Age.Split('/');
+                    age_m = splittedAge[0];
+                    age_y = splittedAge[1];
+                }
+                catch (Exception)
+                {
+                }
+            }
 
             request.AddBody(new
                                 {
                                    dl = calc.Balance,
-                                   l = "England",// calc.SelectedAddressCountry, 
-                                   c = "United Kingdom",
-                                   ys = "2016", //calc.StartYear, 
-                                   ye = "2016", //calc.EligibleYear, 
-                                   paye = "Yes", 
-                                   ge = "10000",//calc.GrossEarnings, 
-                                   td = "per year", // calc.SelectedGrossEarningsPer, 
-                                   ar = "100", //calc.Repayments, 
-                                   curr_ar = "British Pound", //calc.SelectedRepaymentsCurrency, 
-                                   td_ar = "per year", // calc.SelectedRepaymentsPer,
-                                   age_m = "01", //calc.age_m, 
-                                   age_y = "1991", //calc.age_y,
-                                   bulk = "500", //calc.bulk, 
-                                   curr_bulk = "British Pound", //calc.curr_bulk, 
-                                   pg = "Yes", // calc.pg
+                                   //l = "England",// calc.SelectedAddressCountry, 
+                                   l = calc.SelectedAddressCountry, 
+                                  // c = "United Kingdom",
+                                   c = calc.SelectedWorkCountry,
+                                   // ys = "2016", //calc.StartYear, 
+                                   ys = calc.StartYear, 
+                                   //ye = "2016", //calc.EligibleYear, 
+                                   ye = calc.EligibleYear, 
+                                   paye = calc.Paye ? "Yes" : "No", 
+                                   //ge = "10000",//calc.GrossEarnings, 
+                                   ge = calc.GrossEarnings, 
+                                 //  td = "per year", // calc.SelectedGrossEarningsPer, 
+                                   td = calc.SelectedGrossEarningsPer, 
+                                   //ar = "100", //calc.Repayments, 
+                                   ar = calc.Repayments, 
+                                  // curr_ar = "British Pound", //calc.SelectedRepaymentsCurrency, 
+                                   curr_ar = calc.SelectedRepaymentsCurrency, 
+                                   // td_ar = "per year", // calc.SelectedRepaymentsPer,
+                                   td_ar = calc.SelectedRepaymentsPer,
+                                   age_m = age_m, //calc.age_m, 
+                                   age_y = age_y, //calc.age_y,
+                                //   bulk = "500", //calc.bulk, 
+                                   bulk = calc.bulk, 
+                                  // curr_bulk = "British Pound", //calc.curr_bulk, 
+                                   curr_bulk = calc.curr_bulk, 
+                                   pg = calc.PostGraduateLoan ? "Yes" : "No"
                                 });
 
             try

@@ -93,12 +93,12 @@
             message.Body = body;
             message.IsBodyHtml = true;
 
-
             using (var smtp = new SmtpClient())
             {
                 var credential = new NetworkCredential { UserName = "stefanspasov90@gmail.com", 
                                                          Password = "pickaboo4" 
                                                        };
+                smtp.UseDefaultCredentials = false;
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;

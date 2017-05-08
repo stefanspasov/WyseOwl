@@ -4,9 +4,9 @@
     ViewBag.Title = "Home Page";
 }
 
-
-<div class="jumbotron">
-    @*<h1>Student Loans Repayment Calculator UK</h1>*@
+<div class="jumbobg"></div>
+<div class="jumbo">
+    <h1>Student Loans Repayment Calculator UK</h1>
     <p class="lead">Use this quick and easy calculator to see how long it takes to pay off your student loan and whether you can make any savings. </p>
     <p class="lead">We don't store any of your information!</p>
 </div>
@@ -53,6 +53,7 @@
                     </div>
                     <div class="col-md-8">
                         @Html.DropDownListFor(m => m.SelectedAddressCountry, Model.AddressCountry, "-SELECT-", new { @class = "form-control", @id = "ddlAddressCountry" })
+                        @Html.ValidationMessageFor(m => m.SelectedAddressCountry, "", new { @class = "text-danger" })
                     </div>
                 </div>
             <br/>
@@ -69,44 +70,69 @@
                 </div>
                 <div class="col-md-5">@Html.ValidationMessageFor(m => m.StartYear)</div>
             </div>
-
-            <div class="row">
+            <br />
+            <div class="row" id="divPostgraduateLoan" style="display: none">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.PostGraduateLoan)
+                </div>
+                <div class="col-md-2" style="padding-bottom: 25px;">
+                    @Html.CheckBoxFor(m => m.PostGraduateLoan, new { @id = "cbPostgraduateLoan" })
+                </div>
+            </div>
+            <div class="row" id="divEligibleYear" style="display: none">
                 <div class="col-md-4 col-xs-12">
                     @Html.LabelFor(m => m.EligibleYear)
                 </div>
                 <div class="col-md-2 col-xs-6" style="padding-top: 10px;">
                     <div id="eligilbeYearSlider"></div>
                 </div>
-                <div class="col-md-1 col-xs-4">
+                <div class="col-md-1 col-xs-4" style="padding-bottom: 25px">
                     @Html.TextBoxFor(m => m.EligibleYear, new { @readonly = "readonly", @class = "form-control input-sm", @id = "eligibleYear" })
                 </div>
                 <div class="col-md-5">@Html.ValidationMessageFor(m => m.EligibleYear)</div>
             </div>
-            <br />
-            <div class="row">
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.Paye)
+            <div class="row" id="divAge" style="display: none">
+                <div class="col-md-4 col-xs-4">
+                    @Html.LabelFor(m => m.Age)
                 </div>
-                <div class="col-md-2">
-                    @Html.CheckBoxFor(m => m.Paye, new { @id = "cbPaye" })
-                </div>
-            </div>
-            <br />
-            <div class="row" id="divPostgraduateLoan" style="display: none">
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.PostGraduateLoan)
-                </div>
-                <div class="col-md-2">
-                    @Html.CheckBoxFor(m => m.PostGraduateLoan, new { @id = "cbPostgraduateLoan" })
+                <div class="col-md-2 col-xs-3" style="padding-bottom: 25px">
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control", @id = "tbAge" })
+                    @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <br />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Paye)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.Paye, new { @id = "cbPaye" })
+                    </div>
+                </div>
+
+            <br/>
+            <div class="row" style="display: none" id="divBulk">
+                <div class="col-md-4 col-xs-4" style="padding-top: 5px">
+                    @Html.LabelFor(m => m.bulk) &nbsp;
+                </div>
+                <div class="col-md-1 col-xs-3" style="padding-top: 5px">
+                    @Html.TextBoxFor(m => m.bulk, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.bulk, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 col-xs-5" style="padding-top: 5px">
+                    @Html.DropDownListFor(m => m.SelectedRepaymentsPer, Model.PerTime, new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 col-xs-6" style="padding-top: 5px; padding-bottom: 25px">
+                    @Html.DropDownListFor(m => m.curr_bulk, Model.Currency, new { @class = "form-control" })
+                </div>
+            </div>
+
                 <div class="row">
                     <div class="col-md-4">
                         @Html.LabelFor(m => m.SelectedWorkCountry)
                     </div>
                     <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.SelectedWorkCountry, Model.WorkCountry, "-SELECT-", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.SelectedWorkCountry, Model.WorkCountry, new { @class = "form-control" })
                     </div>
                 </div>
                 <br />
@@ -120,7 +146,7 @@
                         @Html.ValidationMessageFor(m => m.GrossEarnings, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-2 col-xs-5">
-                        @Html.DropDownListFor(m => m.SelectedGrossEarningsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.SelectedGrossEarningsPer, Model.PerTime, new { @class = "form-control" })
                     </div>
                 </div>
                 <br />
@@ -134,22 +160,22 @@
                         @Html.ValidationMessageFor(m => m.Repayments, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-2 col-xs-5" style="padding-top: 5px">
-                        @Html.DropDownListFor(m => m.SelectedRepaymentsPer, Model.PerTime, "-SELECT-", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.SelectedRepaymentsPer, Model.PerTime, new { @class = "form-control" })
                     </div>
                     <div class="col-md-2 col-xs-6" style="padding-top: 5px">
-                        @Html.DropDownListFor(m => m.SelectedRepaymentsCurrency, Model.Currency, "-SELECT-", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.SelectedRepaymentsCurrency, Model.Currency, new { @class = "form-control" })
                     </div>
                 </div>
-            <br/>
-            <br />
+                <br />
+                <br />
                 <div class="row">
                     <div class="col-md-10 col-xs-12">
                         <input type="submit" value="Calculate" class="btn btn-info" style="width: 100%" />
                     </div>
                 </div>
-        }
+                }
 
-    </section>
+</section>
 </div>
 
 <section id="sectionResults" style="display: none">
@@ -267,9 +293,39 @@
     </section>
 </div>
 
+<style>
+    .jumbobg {
+          background: url('https://dvyvvujm9h0uq.cloudfront.net/images/pixpa-inner-banner.jpg') no-repeat center center;
+          position: fixed;
+          width: 100%;
+          height: 350px; 
+          top:0;
+          left:0;
+          z-index: -1;
+    }
+
+    .jumbo {
+        height: 350px;
+          color: white;
+          text-shadow: #444 0 1px 1px;
+          background:transparent;
+    }
+</style>
 
 @section Scripts {
     <script>
+        
+        var jumboHeight = $('.jumbo').outerHeight();
+        function parallax() {
+            var scrolled = $(window).scrollTop();
+            $('.jumbobg').css('height', (jumboHeight - scrolled) + 'px');
+        }
+
+        $(window).scroll(function (e) {
+            parallax();
+        });
+
+
         //# sourceURL=dynamicScript.js
         function onSuccess(data) {
             $("#calculationInputButton").click();
@@ -301,7 +357,7 @@
         }
 
         function onSuccessRecalc(data) {
-           // $("#spanResult1").text(data.result.OutstandingLoan);
+            // $("#spanResult1").text(data.result.OutstandingLoan);
 
             $("#spanResult2").text(data.result.LengthUntillPaidOff);
             $("#spanResult3").text(data.result.YouSave);
@@ -309,25 +365,26 @@
             $("#spanResult5").text(data.result.MonthlyRepayments);
             $("#spanResult6").text(data.result.InterestRate);
 
-          //  $("#spanResult7").text(data.result.CancelledIn);
-          //  $("#spanResult8").text(data.result.LoanType);
+            //  $("#spanResult7").text(data.result.CancelledIn);
+            //  $("#spanResult8").text(data.result.LoanType);
         }
 
         $(function () {
             $("#beginYearSlider").slider({
                 range: "max",
-                min: 1990,
+                min: 1998,
                 max: 2017,
                 value: $("#beginYear").val(),
                 slide: function (event, ui) {
                     $("#beginYear").val(ui.value);
                     showOrHidePostGraduateLoan();
+                    showOrHideAgeAndEligibleYear();
                 }
             });
 
             $("#eligilbeYearSlider").slider({
                 range: "max",
-                min: 1990,
+                min: 2006,
                 max: 2017,
                 value: $("#eligibleYear").val(),
                 slide: function (event, ui) {
@@ -341,20 +398,49 @@
                 off_label: "No"
             });
 
+            $('#cbPaye').change(function () {
+                if (this.checked) {
+                    $('#divBulk').show();
+                } else {
+                    $('#divBulk').hide();
+                }
+            });
+
             $("#cbPostgraduateLoan").switchButton(
-           {
-               on_label: "Yes",
-               off_label: "No"
-           });
+            {
+                on_label: "Yes",
+                off_label: "No"
+            });
+
+            $("#tbAge").mask("99/9999", { placeholder: "mm/yyyy" });
         });
 
         $("#ddlAddressCountry").change(showOrHidePostGraduateLoan);
+        $("#ddlAddressCountry").change(showOrHideAgeAndEligibleYear);
+
 
         function showOrHidePostGraduateLoan() {
             if ($('#ddlAddressCountry').val() === "England" && parseInt($("#beginYear").val()) > 2012) {
                 $('#divPostgraduateLoan').show();
             } else {
                 $('#divPostgraduateLoan').hide();
+            }
+        };
+
+        function showOrHideAgeAndEligibleYear() {
+            var isAgeCondition1 = ['England', 'North Ireland', 'Wales'].indexOf($('#ddlAddressCountry').val()) > -1 && parseInt($("#beginYear").val()) < 2006;
+            var isAgeCondition2 = $('#ddlAddressCountry').val() === "Scotland" && parseInt($("#beginYear").val()) < 2007;
+            if (isAgeCondition1 || isAgeCondition2) {
+                $('#divAge').show();
+                $('#divEligibleYear').hide();
+            } else {
+                $('#divEligibleYear').show();
+                $('#divAge').hide();
+            }
+
+            if ($('#ddlAddressCountry').val() === '-SELECT-') {
+                $('#divEligibleYear').hide();
+                $('#divAge').hide();
             }
         };
 

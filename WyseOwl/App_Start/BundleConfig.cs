@@ -42,6 +42,10 @@ namespace WyseOwl
             bundles.Add(new ScriptBundle("~/bundles/jqtouch").Include(
             "~/Scripts/jquery.ui.touch-punch.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqmasked").Include(
+           "~/Scripts/jquery.maskedinput.min.js"));
+
+
             bundles.Add(new LessBundle("~/Content/less").Include("~/Content/*.less"));
 
             //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
